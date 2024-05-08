@@ -42,10 +42,54 @@
 			<artifactId>postgresql</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+
+		<!-- swagger-ui -->
+		<!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui -->
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>2.5.0</version>
+		</dependency>
+		<!-- swagger-ui -->
+
+		<!-- Gson -->
+		<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.10.1</version>
+    	</dependency>
+		<!-- Gson -->
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+
+		<!-- Feign Mock -->
+		<!-- https://mvnrepository.com/artifact/io.github.openfeign/feign-mock -->
+		<dependency>
+			<groupId>io.github.openfeign</groupId>
+			<artifactId>feign-mock</artifactId>
+			<version>13.2.1</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- Feign Mock -->
+
+		<!-- Feign Jackson -->
+		<!-- https://mvnrepository.com/artifact/io.github.openfeign/feign-jackson -->
+		<dependency>
+			<groupId>io.github.openfeign</groupId>
+			<artifactId>feign-jackson</artifactId>
+			<version>13.2.1</version>
+		</dependency>
+		<!-- Feign Jackson -->
+
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
 		</dependency>
 	</dependencies>
 	<dependencyManagement>
