@@ -1,5 +1,7 @@
 package com.brunolpw.deckofcards.services;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.brunolpw.deckofcards.models.Deck;
@@ -22,13 +24,41 @@ public class DeckService {
     public Deck getNewDeck() {
         var json = _deckServiceClient.getNewDeck();
 
-        if (json == null) { return null; }
+        if (json == null) {
+            return null;
+        }
 
-        var gson = new Gson();
-        var deck = gson.fromJson(json, Deck.class);
+        var deck = convertJsonToDeck(json);
 
         _deckRepository.save(deck);
 
+        return deck;
+    }
+    
+    @Transactional
+    public List<Deck> getAllDecks() {
+        return _deckRepository.findAll();
+    }
+    
+    @Transactional
+    public Deck shufflDeck(String deckId) {
+        var json = _deckServiceClient.shuffleDeck(deckId);
+
+        if (json == null) {
+            return null;
+        }
+        
+        var deck = convertJsonToDeck(json);
+
+        _deckRepository.save(deck);
+
+        return deck;
+    }
+    
+    private Deck convertJsonToDeck(String json) {
+        var gson = new Gson();
+        var deck = gson.fromJson(json, Deck.class);
+        
         return deck;
     }
 }
