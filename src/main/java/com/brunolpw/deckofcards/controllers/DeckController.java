@@ -12,6 +12,8 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 
 
@@ -39,8 +41,8 @@ public class DeckController {
     }
     
 
-    @GetMapping("/shuffle")
-    public ResponseEntity<Deck> shuffleDeck(DeckDto deckDto) {
+    @PostMapping("/shuffle")
+    public ResponseEntity<Deck> shuffleDeck(@RequestBody DeckDto deckDto) {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(_deckService.shufflDeck(deckDto.deckId()));
