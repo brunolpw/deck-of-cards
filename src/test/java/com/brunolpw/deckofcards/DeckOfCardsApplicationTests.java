@@ -4,12 +4,15 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cloud.openfeign.support.SpringMvcContract;
+import org.springframework.test.context.ActiveProfiles;
+
 import com.brunolpw.deckofcards.services.DeckServiceClient;
 import feign.Feign;
 import feign.mock.HttpMethod;
 import feign.mock.MockClient;
 
 @SpringBootTest
+@ActiveProfiles("test")
 class DeckOfCardsApplicationTests {
 
 	private static String BASE_URL = "https://deckofcardsapi.com/api/deck";

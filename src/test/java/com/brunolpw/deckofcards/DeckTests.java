@@ -5,10 +5,12 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import com.brunolpw.deckofcards.models.Deck;
 
 @SpringBootTest
+@ActiveProfiles("test")
 public class DeckTests {
     
     @Test
