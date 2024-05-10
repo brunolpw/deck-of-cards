@@ -8,11 +8,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 public interface DeckOfCardsServiceClient {
 
     @GetMapping("/new")
-    String getNewDeck();
+    String createDeck();
+
+    @GetMapping("/new/shuffle")
+    String createShuffledDeck();
 
     @GetMapping("{card_id}/shuffle")
     String shuffleDeck(@PathVariable("card_id") String cardId);
     
     @GetMapping("{card_id}/draw/?count={count}")
-    String getHands(@PathVariable("card_id") String cardId, @PathVariable("count") int count);
+    String createHand(@PathVariable("card_id") String cardId, @PathVariable("count") int count);
 }

@@ -39,7 +39,7 @@ class DeckOfCardsApplicationTests {
 				BASE_URL.concat("/new"),
 				RESPONSE_DECK));
 
-		String json = deckOfCardsService.getNewDeck();
+		String json = deckOfCardsService.createDeck();
 
 		assertFalse(json.isEmpty());
 	}
@@ -51,9 +51,9 @@ class DeckOfCardsApplicationTests {
 		""";
 
 		DeckOfCardsServiceClient mockClient = Mockito.mock(DeckOfCardsServiceClient.class);
-		Mockito.when(mockClient.getNewDeck()).thenReturn(mockJson);
+		Mockito.when(mockClient.createDeck()).thenReturn(mockJson);
 
-		String newDeckJson = mockClient.getNewDeck();
+		String newDeckJson = mockClient.createDeck();
 
 		assertNotNull(newDeckJson);
 		assertTrue(newDeckJson.contains("\"success\": true")); // Verifica a presença de "success"
@@ -68,9 +68,9 @@ class DeckOfCardsApplicationTests {
 		int count = 3;
 
 		DeckOfCardsServiceClient mockClient = Mockito.mock(DeckOfCardsServiceClient.class);
-		Mockito.when(mockClient.getHands(cardId, count)).thenReturn(mockJson);
+		Mockito.when(mockClient.createHand(cardId, count)).thenReturn(mockJson);
 
-		String handsJson = mockClient.getHands(cardId, count);
+		String handsJson = mockClient.createHand(cardId, count);
 
 		assertNotNull(handsJson);
 		assertTrue(handsJson.contains("\"cards\":"));

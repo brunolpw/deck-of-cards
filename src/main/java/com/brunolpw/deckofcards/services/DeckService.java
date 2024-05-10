@@ -21,8 +21,23 @@ public class DeckService {
     }
 
     @Transactional
-    public Deck getNewDeck() {
-        var json = _deckOfCardsServiceClient.getNewDeck();
+    public Deck createDeck() {
+        var json = _deckOfCardsServiceClient.createDeck();
+
+        if (json == null) {
+            return null;
+        }
+
+        var deck = Utils.convertJsonToObject(json, Deck.class);
+
+        _deckRepository.save(deck);
+
+        return deck;
+    }
+    
+    @Transactional
+    public Deck createShuffledDeck() {
+        var json = _deckOfCardsServiceClient.createShuffledDeck();
 
         if (json == null) {
             return null;
@@ -61,7 +76,7 @@ public class DeckService {
     }
     
     @Transactional
-    public Deck update(Deck deck) {
+    public Deck updateDeck(Deck deck) {
         return _deckRepository.save(deck);
     }
 
@@ -77,6 +92,6 @@ public class DeckService {
             throw new DeckRemainingException(deck.getRemaining());
         }
 
-        return update(new Deck(deck.getDeckId(), deck.getRemaining() - count, deck.isSuccess(), deck.isShuffled()));
-    } 
+        return updateDeck(new Deck(deck.getDeckId(), deck.getRemaining() - count, deck.isSuccess(), deck.isShuffled()));
+    }
 }

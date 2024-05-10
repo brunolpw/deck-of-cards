@@ -28,10 +28,10 @@ public class DeckControllerTests {
 		Deck mockDeck = new Deck("new_deck_id", 52, true, false);
 
 		DeckService mockService = Mockito.mock(DeckService.class);
-		Mockito.when(mockService.getNewDeck()).thenReturn(mockDeck);
+		Mockito.when(mockService.createDeck()).thenReturn(mockDeck);
 		DeckController controller = new DeckController(mockService);
 
-		ResponseEntity<Deck> response = controller.getDeck();
+		ResponseEntity<Deck> response = controller.createDeck();
 
 		assertEquals(HttpStatus.OK, response.getStatusCode());
 		assertNotNull(response.getBody());
