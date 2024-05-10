@@ -7,15 +7,17 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import com.brunolpw.deckofcards.models.Deck;
 import com.google.gson.JsonSyntaxException;
 
 @SpringBootTest
+@ActiveProfiles("test")
 public class UtilsTests {
     
     @Test
-    public void testConvertJsonToObjectSuccess() {
+    public void testConvertJsonToObjectSuccess() throws Exception {
         String json = """
                     {
                     "success": true,
@@ -33,7 +35,7 @@ public class UtilsTests {
     }
     
     @Test
-    public void testConvertJsonToObjectError() {
+    public void testConvertJsonToObjectError() throws Exception {
         String invalidJson = "{invalid_json_format}";
         Class<Deck> targetClass = Deck.class;
 
@@ -41,25 +43,13 @@ public class UtilsTests {
     }
 
     @Test
-    public void testConvertCardValueValid() {
-        String value = "QUEEN";
-        int expectedValue = 12;
+    public void testConvertCardValueValid() throws Exception {
+        int aceValue = Utils.convertCardValue("ACE");
+        int twoValue = Utils.convertCardValue("2");
+        int queenValue = Utils.convertCardValue("QUEEN");
 
-        int convertedValue = Utils.convertCardValue(value);
-
-        assertEquals(expectedValue, convertedValue);
+        assertEquals(1, aceValue);
+        assertEquals(2, twoValue);
+        assertEquals(12, queenValue);
     }
-
-    // @Test
-    // public void testConvertCardValueInvalid() {
-    //     String invalidValue = "invalid_card_value";
-
-    //     // Escolha o comportamento esperado para valor inválido:
-    //     // Option 1: Retorna valor padrão (0)
-    //     // assertEquals(0, Utils.convertCardValue(invalidValue));
-
-    //     // Option 2: Lança exceção (ajuste a exceção esperada)
-    //     // expected = IllegalArgumentException.class;
-    //     assertThrows(IllegalArgumentException.class, () -> Utils.convertCardValue(invalidValue));
-    // }
 }
