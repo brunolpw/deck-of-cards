@@ -82,6 +82,10 @@ public class DeckService {
 
     @Transactional
     public Deck remainingCards(String deckId, int count) {
+        if (count <= 0) {
+            throw new DeckRemainingException();
+        }
+
         var deck = getDeck(deckId);
 
         if (deck == null) {

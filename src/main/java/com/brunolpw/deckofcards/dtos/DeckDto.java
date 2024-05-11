@@ -5,7 +5,7 @@ import jakarta.annotation.Nonnull;
 public record DeckDto(
     @Nonnull
     String deckId,
-    int remainingCards,
+    int remaining,
     boolean success,
     boolean shuffled
 ) {

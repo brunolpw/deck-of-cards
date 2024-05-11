@@ -7,12 +7,12 @@ public class DeckRemainingException extends RuntimeException {
     }
 
     public DeckRemainingException(int cardsRemaining) {
-        super("O número de cartas retiradas é superior ao que existe no baralho (" + cardsRemaining + ").");
+        super("O número de cartas não é compativel (" + cardsRemaining + ").");
 
     }
     
     public DeckRemainingException() {
-        super("O número de cartas retiradas é superior ao que existe no baralho.");
+        super("O número de cartas não é compativel.");
         
     }
 }
