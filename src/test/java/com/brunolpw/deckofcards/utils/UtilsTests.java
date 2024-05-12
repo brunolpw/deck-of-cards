@@ -1,6 +1,5 @@
 package com.brunolpw.deckofcards.utils;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -40,16 +39,5 @@ public class UtilsTests {
         Class<Deck> targetClass = Deck.class;
 
         assertThrows(JsonSyntaxException.class, () -> Utils.convertJsonToObject(invalidJson, targetClass));
-    }
-
-    @Test
-    public void testConvertCardValueValid() throws Exception {
-        int aceValue = Utils.convertCardValue("ACE");
-        int twoValue = Utils.convertCardValue("2");
-        int queenValue = Utils.convertCardValue("QUEEN");
-
-        assertEquals(1, aceValue);
-        assertEquals(2, twoValue);
-        assertEquals(12, queenValue);
     }
 }

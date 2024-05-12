@@ -1,5 +1,7 @@
 package com.brunolpw.deckofcards.services;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.brunolpw.deckofcards.dtos.CardDto;
@@ -17,7 +19,12 @@ public class CardService {
     }
 
     @Transactional
-    public Card createCard(CardDto dto) {
+    public List<Card> getAll() {
+        return _cardRepository.findAll();
+    }
+
+    @Transactional
+    protected Card createCard(CardDto dto) {
         var card = new Card(dto);
 
         return getCard(card.getCode()) != null
@@ -26,7 +33,7 @@ public class CardService {
     }
 
     @Transactional
-    public Card getCard(String cardCode) {
+    protected Card getCard(String cardCode) {
         return _cardRepository.findById(cardCode).orElse(null);
     }
 }
