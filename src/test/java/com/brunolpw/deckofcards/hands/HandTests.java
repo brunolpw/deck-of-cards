@@ -12,6 +12,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 import com.brunolpw.deckofcards.dtos.CardDto;
 import com.brunolpw.deckofcards.dtos.HandDto;
+import com.brunolpw.deckofcards.models.Game;
 import com.brunolpw.deckofcards.models.Hand;
 
 @SpringBootTest
@@ -24,7 +25,7 @@ public class HandTests {
         boolean expectedSuccess = true;
         String expectedDeckId = "existing_deck_id";
 
-        Hand hand = new Hand(expectedHandId, expectedSuccess, expectedDeckId);
+        Hand hand = new Hand(expectedHandId, expectedSuccess, expectedDeckId, null);
 
         assertEquals(expectedHandId, hand.getHandId());
         assertEquals(expectedSuccess, hand.isSuccess());
@@ -38,7 +39,7 @@ public class HandTests {
         String expectedDeckId = "existing_deck_id";
         List<CardDto> expectedCards = new ArrayList<CardDto>();
 
-        HandDto dto = new HandDto(expectedHandId, expectedSuccess, expectedDeckId, expectedCards);
+        HandDto dto = new HandDto(expectedHandId, expectedSuccess, expectedDeckId, expectedCards, null);
         Hand hand = new Hand(dto);
 
         assertEquals(expectedHandId, hand.getHandId());
@@ -52,7 +53,7 @@ public class HandTests {
         boolean success = true;
         String deckId = "existing_deck_id";
 
-        Hand hand = new Hand(handId, success, deckId);
+        Hand hand = new Hand(handId, success, deckId, null);
 
         assertEquals(handId, hand.getHandId());
         assertEquals(success, hand.isSuccess());
@@ -64,10 +65,13 @@ public class HandTests {
         UUID handId = UUID.randomUUID();
         boolean success = true;
         String deckId = "existing_deck_id";
+        List<String> cardCodes = List.of("2S", "QH", "KD", "AC");
+        Game game = new Game();
 
-        Hand hand = new Hand(handId, success, deckId);
+        Hand hand = new Hand(handId, success, deckId, game);
+        hand.setCardCodes(cardCodes);
 
-        String expectedString = "Hand [handId=" + handId + ", success=" + success + ", deckId=" + deckId + "]";
+        String expectedString = "Hand [handId=" + handId + ", success=" + success + ", deckId=" + deckId + ", cardCodes=" + cardCodes + ", game=" + game + "]";
         assertEquals(expectedString, hand.toString());
     }
 }

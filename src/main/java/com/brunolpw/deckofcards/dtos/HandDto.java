@@ -10,7 +10,8 @@ public record HandDto(
         boolean success,
         @SerializedName("deck_id")
         String deckId,
-        List<CardDto> cards
+        List<CardDto> cards,
+        List<String> cardCodes
 ) {
 
 }

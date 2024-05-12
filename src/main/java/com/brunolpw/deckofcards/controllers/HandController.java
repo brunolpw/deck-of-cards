@@ -1,5 +1,8 @@
 package com.brunolpw.deckofcards.controllers;
 
+import java.util.List;
+import java.util.UUID;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,10 +22,17 @@ public class HandController {
         this._handService = handService;
     }
 
-    @GetMapping("/new")
-    public ResponseEntity<Hand> createHand(@RequestParam String deckId, @RequestParam int count) {
+    @GetMapping("/getAll")
+    public ResponseEntity<List<Hand>> getAll() {
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(_handService.createHand(deckId, count));
+                .body(_handService.getAll());
+    }
+
+    @GetMapping("/getAllByGameId")
+    public ResponseEntity<List<Hand>> getAllByGameId(@RequestParam UUID gameId) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(_handService.getAllByGameId(gameId));
     }
 }
