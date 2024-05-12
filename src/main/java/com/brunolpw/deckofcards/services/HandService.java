@@ -1,11 +1,13 @@
 package com.brunolpw.deckofcards.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
 import com.brunolpw.deckofcards.dtos.CardDto;
+import com.brunolpw.deckofcards.dtos.GameToPlay;
 import com.brunolpw.deckofcards.dtos.HandDto;
 import com.brunolpw.deckofcards.dtos.HandGame;
 import com.brunolpw.deckofcards.models.Game;
@@ -76,6 +78,16 @@ public class HandService {
         return new HandGame(handId, hand.getCardCodes(), totalValue);
     }
     
+    protected List<Hand> updateWithGame(GameToPlay play, Game game) {
+        var hands = new ArrayList<Hand>();
+
+        for (int i = 0; i < play.countHands(); i++) {
+            hands.add(createHand(game.getDeckId(), play.countCards(), game));
+        }
+
+        return hands;
+    } 
+
     private Hand saveHand(HandDto dto, Game game) {
         var hand = new Hand(dto);
         var codes = dto.cards().stream().map(c -> c.code()).toList();
