@@ -3,6 +3,10 @@ package com.brunolpw.deckofcards.hands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.UUID;
+
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,22 +20,39 @@ import com.brunolpw.deckofcards.services.HandService;
 @SpringBootTest
 @ActiveProfiles("test")
 public class HandControllerTest {
-
+    
     @Test
-    public void testGetHandsSuccess() throws Exception {
-        String deckId = "existing_deck_id";
-        int count = 2;
-        Hand expectedHand = new Hand(true, deckId);
-
-        HandService mockService = Mockito.mock(HandService.class);
+    public void testGetAllHandsEmptyList() throws Exception {
+        List<Hand> hands = List.of();
         
-        Mockito.when(mockService.createHand(deckId, count)).thenReturn(expectedHand);
+        HandService mockService = Mockito.mock(HandService.class);
+
+        Mockito.when(mockService.getAll()).thenReturn(Collections.emptyList());
         HandController controller = new HandController(mockService);
 
-        ResponseEntity<Hand> response = controller.createHand(deckId, count);
+        ResponseEntity<List<Hand>> response = controller.getAll();
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertNotNull(response.getBody());
-        assertEquals(expectedHand, response.getBody());
+        assertEquals(hands, response.getBody());
     }
+    
+    @Test
+    public void testGetAllHandsByGameIdSuccess() throws Exception {
+        UUID expectedGameId = UUID.randomUUID();
+        List<Hand> expectedHands = List.of(new Hand(), new Hand());
+    
+        HandService mockService = Mockito.mock(HandService.class);
+
+        Mockito.when(mockService.getAllByGameId(expectedGameId)).thenReturn(expectedHands);
+        HandController controller = new HandController(mockService);
+
+        ResponseEntity<List<Hand>> response = controller.getAllByGameId(expectedGameId);
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertNotNull(response.getBody());
+        assertEquals(expectedHands, response.getBody());
+    }
+    
+
 }
