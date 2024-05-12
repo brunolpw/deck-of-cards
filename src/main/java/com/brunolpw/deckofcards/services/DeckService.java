@@ -76,12 +76,12 @@ public class DeckService {
     }
     
     @Transactional
-    public Deck updateDeck(Deck deck) {
+    protected Deck updateDeck(Deck deck) {
         return _deckRepository.save(deck);
     }
 
     @Transactional
-    public Deck remainingCards(String deckId, int count) {
+    protected Deck remainingCards(String deckId, int count) {
         if (count <= 0) {
             throw new DeckRemainingException();
         }
@@ -97,5 +97,11 @@ public class DeckService {
         }
 
         return updateDeck(new Deck(deck.getDeckId(), deck.getRemaining() - count, deck.isSuccess(), deck.isShuffled()));
+    }
+
+    protected boolean verifyRemaining(String deckId, int quantity) {
+        var deck = getDeck(deckId);
+
+        return deck.getRemaining() >= quantity;
     }
 }

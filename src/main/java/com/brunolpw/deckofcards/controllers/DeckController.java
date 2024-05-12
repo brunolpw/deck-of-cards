@@ -3,7 +3,6 @@ package com.brunolpw.deckofcards.controllers;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.brunolpw.deckofcards.dtos.DeckDto;
 import com.brunolpw.deckofcards.models.Deck;
 import com.brunolpw.deckofcards.services.DeckService;
 
@@ -27,29 +26,28 @@ public class DeckController {
     @GetMapping("/new")
     public ResponseEntity<Deck> createDeck() {
         return ResponseEntity
-                .status(HttpStatus.OK)
+                .status(HttpStatus.CREATED)
                 .body(_deckService.createDeck());
     }
 
     @GetMapping("/newShuffled")
     public ResponseEntity<Deck> createShuffledDeck() {
         return ResponseEntity
-                .status(HttpStatus.OK)
+                .status(HttpStatus.CREATED)
                 .body(_deckService.createShuffledDeck());
     }
     
-    @GetMapping("/allDecks")
-    public ResponseEntity<List<Deck>> getAllDecks() {
+    @GetMapping("/getAll")
+    public ResponseEntity<List<Deck>> getAll() {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(_deckService.getAllDecks());
     }
     
-
     @PutMapping("/shuffle")
-    public ResponseEntity<Deck> shuffleDeck(@RequestBody DeckDto deckDto) {
+    public ResponseEntity<Deck> shuffleDeck(@RequestBody String deckId) {
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(_deckService.shufflDeck(deckDto.deckId()));
+                .body(_deckService.shufflDeck(deckId));
     }
 }

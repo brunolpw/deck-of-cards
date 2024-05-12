@@ -15,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 
 import com.brunolpw.deckofcards.controllers.DeckController;
-import com.brunolpw.deckofcards.dtos.DeckDto;
 import com.brunolpw.deckofcards.models.Deck;
 import com.brunolpw.deckofcards.services.DeckService;
 
@@ -33,7 +32,7 @@ public class DeckControllerTests {
 
 		ResponseEntity<Deck> response = controller.createDeck();
 
-		assertEquals(HttpStatus.OK, response.getStatusCode());
+		assertEquals(HttpStatus.CREATED, response.getStatusCode());
 		assertNotNull(response.getBody());
 		assertEquals(mockDeck, response.getBody());
 	}
@@ -47,9 +46,7 @@ public class DeckControllerTests {
 		Mockito.when(mockService.shufflDeck(deckId)).thenReturn(mockShuffledDeck);
 		DeckController controller = new DeckController(mockService);
 
-		DeckDto deckDto = new DeckDto(deckId, 0, false, false);
-
-		ResponseEntity<Deck> response = controller.shuffleDeck(deckDto);
+		ResponseEntity<Deck> response = controller.shuffleDeck(deckId);
 
 		assertEquals(HttpStatus.OK, response.getStatusCode());
 		assertNotNull(response.getBody());
@@ -64,7 +61,7 @@ public class DeckControllerTests {
 		Mockito.when(mockService.getAllDecks()).thenReturn(emptyList);
 		DeckController controller = new DeckController(mockService);
 		
-		ResponseEntity<List<Deck>> response = controller.getAllDecks();
+		ResponseEntity<List<Deck>> response = controller.getAll();
 		
 		assertEquals(HttpStatus.OK, response.getStatusCode());
 		assertNotNull(response.getBody());
