@@ -41,7 +41,7 @@ public class HandService {
         var hand = _handRepository.save(new Hand(dto));
 
         dto.cards().forEach(card -> {
-            _cardService.createCard(new CardDto(card.code(), card.value(), card.suit(), hand));
+            _cardService.createCard(new CardDto(card.code(), card.value(), card.suit()));
         });
 
         return hand;
