@@ -14,7 +14,7 @@ services:
     - deck-of-cards_netword
   
   app:
-    image: ghcr.io/brunolpw/deck-of-cards-app:pr-11
+    image: ghcr.io/brunolpw/deck-of-cards-app:main
     container_name: deck-of-cards-app
     restart: always
     environment:
