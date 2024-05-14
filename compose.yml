@@ -1,0 +1,44 @@
+services:
+  database:
+    image: 'postgres:latest'
+    container_name: deck-of-cards-db
+    environment:
+      - 'POSTGRES_DB=postgres'
+      - 'POSTGRES_PASSWORD=123'
+      - 'POSTGRES_USER=postgres'
+    ports:
+      - '5432:5432'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+    - deck-of-cards_netword
+  
+  app:
+    image: deck-of-cards
+    container_name: deck-of-cards-app
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=123
+      - POSTGRES_USER=postgres
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://deck-of-cards-db:5432/
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=123
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    volumes:
+      - app-app:/app
+    ports:
+      - "8080:8080"
+    networks:
+      - deck-of-cards_netword
+    depends_on:
+      - database
+  
+volumes:
+  pgdata:
+    driver: local
+  app-app:
+    driver: local
+  
+networks:
+  deck-of-cards_netword:
+    driver: bridge
