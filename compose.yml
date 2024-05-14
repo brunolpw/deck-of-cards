@@ -1,0 +1,42 @@
+version: '3'
+services:
+  db:
+    image: postgres:latest
+    container_name: deck-of-cards-database
+    environment:
+      - 'POSTGRES_USER=postgres'
+      - 'POSTGRES_PASSWORD=123'
+      - 'POSTGRES_DB=postgres'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    restart: always
+    ports:
+      - "5432:5432"
+    networks:
+      - deck-of-cards_netword
+  
+  app:
+    image: ghcr.io/brunolpw/deck-of-cards-app:pr-9
+    #image: deck-of-cards
+    container_name: deck-of-cards-app
+    restart: always
+    volumes:
+      - app-app:/app
+    ports:
+      - "8080:8080"
+    networks:
+      - deck-of-cards_netword
+    depends_on:
+      - db
+  
+volumes:
+  pgdata:
+    driver: local
+  app-app:
+    driver: local
+  
+networks:
+  deck-of-cards_netword:
+    driver: bridge
+
+
